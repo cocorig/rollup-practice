@@ -4,6 +4,8 @@
 	<img src="https://img.shields.io/badge/rollup.js-EC4A3F?style=for-the-badge&logo=rollup.js&logoColor=white">
 </div>
 
+<br>
+
 UI 라이브러리를 구현하는 과정에서 `rollup`이라는 번들링 도구를 알게 되었다. 이참에 rollup 개념과 패키지 배포를 위한 설정에 대해 공부한 내용을 정리해 보려 한다. 🚀
 
 <br>
@@ -191,9 +193,9 @@ npm run build
 <img width="100%" src="https://github.com/user-attachments/assets/84edfe39-2694-4f13-bb73-432437b39d95" />
 </div>
 
-`cjs/index.js`: CommonJS 형식으로 번들링 된 결과 파일.
-`esm/index.js`: ES 모듈(ESM) 형식으로 번들링 된 결과 파일.
-`dist/index.d.ts`: 라이브러리의 모든 타입이 모인 최종 타입 정의 파일.
+`cjs/index.js`: CommonJS 형식으로 번들링 된 결과 파일. <br>
+`esm/index.js`: ES 모듈(ESM) 형식으로 번들링 된 결과 파일. <br>
+`dist/index.d.ts`: 라이브러리의 모든 타입이 모인 최종 타입 정의 파일. <br>
 
 <br>
 
