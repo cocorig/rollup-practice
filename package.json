@@ -1,0 +1,72 @@
+{
+  "name": "@cocorig/rollup-test",
+  "version": "0.0.9",
+  "description": "rollup-test",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
+    }
+  },
+  "author": "cocorig",
+  "license": "MIT",
+  "keywords": [
+    "rollup",
+    "React"
+  ],
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@chromatic-com/storybook": "^3.2.2",
+    "@emotion/babel-plugin": "^11.13.5",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-webpack5": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "babel-loader": "^9.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rollup": "^4.29.1",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "storybook": "^8.4.7",
+    "typescript": "^5.7.2"
+  },
+  "scripts": {
+    "build": "rollup -c ",
+    "watch": "rollup -cw",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@emotion/react": ">=11.x",
+    "@emotion/styled": ">=11.x"
+  },
+  "peerDependencies": {
+    "@emotion/react": ">=11.x",
+    "@emotion/styled": ">=11.x",
+    "react": ">=19.x",
+    "react-dom": ">=19.x"
+  }
+}
