@@ -4,7 +4,7 @@
 	<img src="https://img.shields.io/badge/rollup.js-EC4A3F?style=for-the-badge&logo=rollup.js&logoColor=white">
 </div>
 
-저자는 React, TypeScript, Emotion을 이용한 UI 라이브러리를 만들고자 했고, 그 과정에서 npm에 패키지를 배포하는 방법을 검색하다 rollup이라는 번들링 도구를 알게 되었다. 이참에 rollup 개념과 패키지 배포를 위한 rollup 설정에 대해 공부한 내용을 정리해 보려 한다. 🚀
+UI 라이브러리를 구현하는 과정에서 `rollup`이라는 번들링 도구를 알게 되었다. 이참에 rollup 개념과 패키지 배포를 위한 설정에 대해 공부한 내용을 정리해 보려 한다. 🚀
 
 <br>
 
