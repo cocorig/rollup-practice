@@ -205,3 +205,152 @@ npm run build
 - `dependencies` : 실제 라이브러리가 동작하는 데 필요한 패키지들 <br>
 - `peerDependencies` : 라이브러리를 만들 때 설치한 패키지가 이 라이브러리를 설치할 프로젝트에 같은 패키지가 있을 경우, 패키지를 설치하는 프로젝트에서 해당 의존성을 설치하도록 할 때 peerDependencies에 패키지를 정의할 수 있다.
   <br>
+
+---
+
+### 문제 상황
+
+패키지를 배포한 후, 다른 프로젝트에서 테스트한 결과 버튼 하나를 가져왔음에도 import cost가 큰 문제가 있었다.
+
+### 문제 해결 과정
+
+1. 불필요한 rollup 플러그인 삭제
+
+2. output 설정 변경
+
+   기존에는 `file 옵션`을 사용해 모든 코드를 단일 파일로 번들링 했으나, `dir 옵션`으로 변경해, 각 모듈을 개별 파일로 출력하도록 하였다.
+   이때, `preserveModules`와 `preserveModulesRoot` 옵션을 추가해, 원본 src 구조를 그대로 유지하면서 각 모듈을 개별 파일로 출력하도록 변경했다.
+
+- 추가한 옵션
+
+```json
+  preserveModules: true,  // 각 모듈을 개별 파일로 유지
+  preserveModulesRoot: "src",  // 'src' 구조를 그대로 유지하며 출력
+```
+
+- 폴더 구조
+
+```
+dist/
+  ├── cjs/
+  ├── esm/
+  └── types/
+```
+
+3. input 진입점 변경
+
+패키지 내의 모든 index.ts, index.tsx 파일을 찾고, 번들링 하도록 설정했다. 예를 들어, 아래와 같이 파일 목록을 번들링 진입점으로 설정한다.
+
+```ts
+[
+  "src/index.ts",
+  "src/shared/index.ts",
+  "src/components/index.ts",
+  "src/components/Icon/index.tsx",
+  "src/components/Button/index.tsx",
+  "src/components/Badge/index.tsx",
+];
+```
+
+- rollup.config.js
+
+```js
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import typescript from "@rollup/plugin-typescript";
+import terser from "@rollup/plugin-terser";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+
+import fs from "fs";
+import path from "path";
+
+const extensions = [".js", "jsx", ".ts", ".tsx"];
+
+// 공통 플러그인 설정
+const commonPlugins = [
+  resolve({ extensions }),
+  commonjs(),
+  terser(),
+  peerDepsExternal(),
+  typescript({ tsconfig: "./tsconfig.json" }),
+];
+
+// 공통 output 설정
+const commonOutputOptions = {
+  preserveModules: true,
+  preserveModulesRoot: "src",
+};
+
+// external 옵션
+const externalDependencies = [/node_modules/, /react/, /@emotion/];
+
+/**
+ * 디렉토리 내에서 index.ts와 index.tsx 파일만 찾는 함수
+ * @param {string} dir - 탐색할 디렉토리
+ * @returns {string[]} - index.ts와 index.tsx 파일 경로 리스트
+ */
+const findIndexFiles = (dir) => {
+  const results = [];
+  const stack = [dir];
+
+  while (stack.length > 0) {
+    const currentDir = stack.pop();
+    const files = fs.readdirSync(currentDir);
+
+    for (const file of files) {
+      const filePath = path.join(currentDir, file);
+      const stat = fs.statSync(filePath);
+
+      if (stat.isDirectory()) {
+        stack.push(filePath);
+      } else if (/^index\.(ts|tsx)$/.test(file)) {
+        results.push(filePath);
+      }
+    }
+  }
+  return results;
+};
+
+const srcDir = "src";
+const indexFiles = findIndexFiles(srcDir);
+
+export default [
+  {
+    input: [...indexFiles],
+    output: [
+      {
+        dir: "dist/cjs",
+        format: "cjs",
+        ...commonOutputOptions,
+      },
+
+      {
+        dir: "dist/esm",
+        format: "esm",
+        ...commonOutputOptions,
+      },
+    ],
+    external: externalDependencies,
+    plugins: [...commonPlugins],
+  },
+
+  // types
+  {
+    input: ["src/index.ts"],
+    output: [
+      {
+        dir: "dist/types",
+        format: "esm",
+      },
+    ],
+    external: externalDependencies,
+    plugins: [
+      ...commonPlugins,
+      typescript({
+        declarationDir: "dist/types",
+        declaration: true,
+      }),
+    ],
+  },
+];
+```
