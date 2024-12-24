@@ -197,10 +197,12 @@ npm run build
 
 빌드가 완료되면, dist 폴더 안에 cjs와 esm 버전의 파일, 타입 정의 파일이 생성된다.
 
-<div align="center">
-<img width="100%"  src="https://github.com/user-attachments/assets/efc8ed2e-39f4-4a3e-8644-608e2d42b816" />
+<div align="center" >
 
-<img width="100%" src="https://github.com/user-attachments/assets/84edfe39-2694-4f13-bb73-432437b39d95" />
+<img width="50%"  src="https://github.com/user-attachments/assets/efc8ed2e-39f4-4a3e-8644-608e2d42b816" />
+
+<img width="50%" src="https://github.com/user-attachments/assets/84edfe39-2694-4f13-bb73-432437b39d95" />
+
 </div>
 
 `cjs/index.js`: CommonJS 형식으로 번들링 된 결과 파일. <br>
@@ -250,7 +252,7 @@ npm run build
 
 - 폴더 구조
 
-<img width="100%"  src="https://github.com/user-attachments/assets/ea3ff72c-3164-40a8-b398-b12d50f012c9" />
+<img width="50%" height="400px" src="https://github.com/user-attachments/assets/ea3ff72c-3164-40a8-b398-b12d50f012c9" />
 
 <br>
 
