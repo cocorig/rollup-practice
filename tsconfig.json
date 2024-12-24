@@ -2,23 +2,22 @@
   "compilerOptions": {
     "target": "es2020",
     "module": "esnext",
-    "strict": true, // 모든 타입 검사 옵션을 엄격하게 적용
-    "skipLibCheck": true, // 라이브러리 파일의 타입 검사를 건너뜀
-    "lib": ["dom", "dom.iterable", "esnext"], // 컴파일에 포함될 라이브러리 파일 목록
-    "esModuleInterop": true, // CommonJS 모듈과 호환되도록 esModuleInterop 활성화
+    "strict": true,
+    "skipLibCheck": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "esModuleInterop": true,
     "jsxImportSource": "@emotion/react",
-    "forceConsistentCasingInFileNames": true, // / 파일 이름의 대소문자 일관성을 강제
-    "types": ["react"], // 프로젝트에서 사용할 타입 정의 파일 지정
-    "rootDir": "src", // 입력 파일의 루트 디렉토리
-
+    "forceConsistentCasingInFileNames": true,
+    "types": ["react"],
+    "rootDir": "src",
     "importHelpers": false,
-    "sourceMap": true, // 소스맵 파일을 생성 (디버깅용)
-    "resolveJsonModule": true, // // JSON 파일을 import할 수 있도록 허용
-    "allowSyntheticDefaultImports": true, // 모듈의 기본 내보내기를 지원
-    "noFallthroughCasesInSwitch": true, // switch 문에서 case가 끝난 후 break가 없으면 에러 처리
-    "moduleResolution": "node", // Node.js 방식의 모듈 해석
-    "jsx": "react-jsx" // JSX 변환 설정
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx"
   },
-  "include": ["src"], // 컴파일에 포함할 파일 경로
-  "exclude": ["**/*.stories.tsx", "node_modules"] // 컴파일에서 제외할 파일 경로
+  "include": ["src"],
+  "exclude": ["**/*.stories.tsx", "node_modules", "dist"]
 }
