@@ -10,6 +10,7 @@
     "forceConsistentCasingInFileNames": true, // / 파일 이름의 대소문자 일관성을 강제
     "types": ["react"], // 프로젝트에서 사용할 타입 정의 파일 지정
     "rootDir": "src", // 입력 파일의 루트 디렉토리
+
     "importHelpers": false,
     "sourceMap": true, // 소스맵 파일을 생성 (디버깅용)
     "resolveJsonModule": true, // // JSON 파일을 import할 수 있도록 허용
