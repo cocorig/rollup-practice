@@ -3,12 +3,29 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import { visualizer } from "rollup-plugin-visualizer";
 
 import fs from "fs";
 import path from "path";
 
-const extensions = [".js", ".jsx", ".ts", ".tsx"];
+const extensions = [".js", "jsx", ".ts", ".tsx"];
+
+// 공통 플러그인 설정
+const commonPlugins = [
+  resolve({ extensions }),
+  commonjs(),
+  terser(),
+  peerDepsExternal(),
+  typescript({ tsconfig: "./tsconfig.json" }),
+];
+
+// 공통 Output 설정
+const commonOutputOptions = {
+  preserveModules: true,
+  preserveModulesRoot: "src",
+};
+
+// external 옵션
+const externalDependencies = [/node_modules/, /react/, /@emotion/];
 
 /**
  * 디렉토리 내에서 index.ts와 index.tsx 파일만 찾는 함수
@@ -39,30 +56,17 @@ const findIndexFiles = (dir) => {
 
 const srcDir = "src";
 const indexFiles = findIndexFiles(srcDir);
-
-// 공통 플러그인 설정
-const commonPlugins = [
-  resolve({ extensions }),
-  commonjs(),
-  terser(),
-  peerDepsExternal(),
-  visualizer(),
-  typescript(),
-];
-
-// 공통 Output 설정
-const commonOutputOptions = {
-  preserveModules: true,
-  preserveModulesRoot: "src",
-};
-// external 옵션
-const externalDependencies = [/node_modules/, /react/, /@emotion/];
-
+console.log(indexFiles);
 export default [
-  // ESM
   {
     input: [...indexFiles],
     output: [
+      {
+        dir: "dist/cjs",
+        format: "cjs",
+        ...commonOutputOptions,
+      },
+
       {
         dir: "dist/esm",
         format: "esm",
@@ -73,21 +77,7 @@ export default [
     plugins: [...commonPlugins],
   },
 
-  // CJS
-  {
-    input: [...indexFiles],
-    output: [
-      {
-        dir: "dist/cjs",
-        format: "cjs",
-        ...commonOutputOptions,
-      },
-    ],
-    external: externalDependencies,
-    plugins: [...commonPlugins],
-  },
-
-  // Types
+  // types
   {
     input: ["src/index.ts"],
     output: [
