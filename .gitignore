@@ -9,8 +9,6 @@
 .eslintcache
 
 # storybook
-storybook-static/*
-!storybook-static/.gitkeep
 *storybook.log
 
 # misc

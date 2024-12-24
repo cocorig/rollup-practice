@@ -1,10 +1,10 @@
 {
   "name": "@cocorig/rollup-test",
-  "version": "0.0.9",
+  "version": "0.1.4",
   "description": "rollup-test",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "type": "module",
   "files": [
@@ -12,9 +12,30 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js"
+      "source": "./src/index.ts",
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./shared": {
+      "source": "./src/shared/index.ts",
+      "import": {
+        "types": "./dist/types/shared/index.d.ts",
+        "default": "./dist/esm/shared/index.js"
+      },
+      "require": {
+        "types": "./dist/types/shared/index.d.ts",
+        "default": "./dist/cjs/shared/index.js"
+      }
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "author": "cocorig",
   "license": "MIT",
@@ -56,6 +77,7 @@
   "scripts": {
     "build": "rollup -c ",
     "watch": "rollup -cw",
+    "clean": "rm -rf dist",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
