@@ -247,14 +247,14 @@ npm run build
 
 - 추가한 옵션
 
-```json
+```js
   preserveModules: true,  // 각 모듈을 개별 파일로 유지
   preserveModulesRoot: "src",  // 'src' 구조를 그대로 유지하며 출력
 ```
 
 - 폴더 구조
 
-<img width="50%" height="400px" src="https://github.com/user-attachments/assets/ea3ff72c-3164-40a8-b398-b12d50f012c9" />
+<img width="50%"  src="https://github.com/user-attachments/assets/ea3ff72c-3164-40a8-b398-b12d50f012c9" />
 
 <br>
 
@@ -273,12 +273,15 @@ npm run build
 ];
 ```
 
+<br>
+
 - input / output 설정 변경 후 번들의 크기가 작아진 것을 확인할 수 있다.
 
+<div>
 <img width="100%"  src="https://github.com/user-attachments/assets/4cace25e-a845-44d5-9217-94912f233baf" />
 <img width="100%"  src="https://github.com/user-attachments/assets/9b1d6838-079c-4ebc-b8f7-055e598c3254" />
+</div>
 
-<br>
 <br>
 
 - 변경된 rollup.config.js
