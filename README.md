@@ -4,6 +4,16 @@
 	<img src="https://img.shields.io/badge/rollup.js-EC4A3F?style=for-the-badge&logo=rollup.js&logoColor=white">
 </div>
 
+### 목차
+
+- [rollup 개념](#rollup-개념)
+- [tree-shaking](#tree-shaking)
+- [rollup 설치](#rollup-설치)
+- [package.json 설정](#packagejson-설정)
+- [rollup 설정](#rollup-설정)
+- [문제 상황](#문제-상황)
+- [문제 해결](#문제-해결)
+
 <br>
 
 UI 라이브러리를 구현하는 과정에서 `rollup`이라는 번들링 도구를 알게 되었다. 이참에 rollup 개념과 패키지 배포를 위한 설정에 대해 공부한 내용을 정리해 보려 한다. 🚀
@@ -210,16 +220,28 @@ npm run build
 
 ### 문제 상황
 
-패키지를 배포한 후, 다른 프로젝트에서 테스트한 결과 버튼 하나를 가져왔음에도 import cost가 큰 문제가 있었다.
+<img width="100%"  src="https://github.com/user-attachments/assets/4113917a-2c0a-4ad8-8ef4-c757d921cf1a" />
+<img width="100%" src="https://github.com/user-attachments/assets/cfbccb7a-08e0-49e2-8c0a-a255f75b66e7" />
+
+패키지를 배포한 후, 다른 프로젝트에서 테스트한 결과, 뱃지 하나를 가져왔음에도 import cost가 큰 문제가 있었다.
+
+<br>
 
 ### 문제 해결 과정
 
-1. 불필요한 rollup 플러그인 삭제
+<br>
 
-2. output 설정 변경
+#### 1. 불필요한 rollup 플러그인 삭제
 
-   기존에는 `file 옵션`을 사용해 모든 코드를 단일 파일로 번들링 했으나, `dir 옵션`으로 변경해, 각 모듈을 개별 파일로 출력하도록 하였다.
-   이때, `preserveModules`와 `preserveModulesRoot` 옵션을 추가해, 원본 src 구조를 그대로 유지하면서 각 모듈을 개별 파일로 출력하도록 변경했다.
+- 패키지 삭제 후
+  <img width="100%"  src="https://github.com/user-attachments/assets/57f68e50-4c6a-421c-a59d-0d3d6414b764" />
+
+<br>
+
+#### 2. output 설정 변경
+
+기존에는 `file 옵션`을 사용해 모든 코드를 단일 파일로 번들링 했으나, `dir 옵션`으로 변경해, 각 모듈을 개별 파일로 출력하도록 하였다.
+이때, `preserveModules`와 `preserveModulesRoot` 옵션을 추가해, 원본 src 구조를 그대로 유지하면서 각 모듈을 개별 파일로 출력하도록 변경했다.
 
 - 추가한 옵션
 
@@ -230,14 +252,11 @@ npm run build
 
 - 폴더 구조
 
-```
-dist/
-  ├── cjs/
-  ├── esm/
-  └── types/
-```
+<img width="100%"  src="https://github.com/user-attachments/assets/ea3ff72c-3164-40a8-b398-b12d50f012c9" />
 
-3. input 진입점 변경
+<br>
+
+#### 3. input 진입점 변경
 
 패키지 내의 모든 index.ts, index.tsx 파일을 찾고, 번들링 하도록 설정했다. 예를 들어, 아래와 같이 파일 목록을 번들링 진입점으로 설정한다.
 
@@ -252,7 +271,15 @@ dist/
 ];
 ```
 
-- rollup.config.js
+- input / output 설정 변경 후 번들의 크기가 작아진 것을 확인할 수 있다.
+
+<img width="100%"  src="https://github.com/user-attachments/assets/4cace25e-a845-44d5-9217-94912f233baf" />
+<img width="100%"  src="https://github.com/user-attachments/assets/9b1d6838-079c-4ebc-b8f7-055e598c3254" />
+
+<br>
+<br>
+
+- 변경된 rollup.config.js
 
 ```js
 import resolve from "@rollup/plugin-node-resolve";
@@ -354,3 +381,5 @@ export default [
   },
 ];
 ```
+
+아직 배워야 할 것과 해야 할 게 많지만! 처음부터 rollup을 적용하는 과정이 재밌었다~~~ ⭐️
