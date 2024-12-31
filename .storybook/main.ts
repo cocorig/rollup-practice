@@ -40,4 +40,3 @@ const config: StorybookConfig = {
   },
 };
 export default config;
-//https://olaf-go.medium.com/emotion-%EC%82%AC%EC%9A%A9%ED%95%B4%EB%B3%B4%EA%B8%B0-46def487d0b3
